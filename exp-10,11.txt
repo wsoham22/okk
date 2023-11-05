@@ -1,0 +1,72 @@
+
+EXP 10:-
+
+
+const fs = require("fs");
+const path = require("path");
+const dirPath = path.join(__dirname, "text");
+const filepath = path.join(dirPath, "node.txt");
+const deletepath = path.join(dirPath,"delete.txt");
+//writing a file
+try {
+    fs.writeFileSync(filepath, "this is written text");
+    console.log("File was successfully written.");
+  } catch (error) {
+    console.error("Error writing the file: " + error.message);
+  }
+  //deleting a file
+  try{
+    fs.unlinkSync(deletepath);
+    console.log('File deleted...');
+  }
+  catch(err){
+    console.log("Please try again!");
+  }
+  //reading a file
+
+  try {
+    fs.readFile(filepath, "utf8", (err, data) => {
+      if (err) {
+        console.error(err.message);
+      } else {
+        console.log(data);
+      }
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+  //appending in a file
+  try {
+    fs.appendFileSync(filepath, "\nThis line will be appended to the end of the file.", function (err) {
+        if (err) throw err;
+        console.log('The data was appended to file!');
+        });
+        } catch (err) {
+            console.log(err.message);
+            }
+
+
+
+
+exp 11 server html
+const http = require("http");
+const fs = require("fs");
+const port = 3000;
+const server = http.createServer((req,res)=>{
+    res.writeHead(200,{
+        'Content-Type':'text/html'
+    });
+    fs.readFile('index.html','utf-8',function(err,data){
+        if(err){res.write(404);
+        res.write('File not found!')
+    }
+    else{
+        res.write(data);
+    }
+    res.end();
+    })
+
+})
+server.listen(port,()=>{
+    console.log(`Server is listening on ${port}`)
+})
